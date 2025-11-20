@@ -1,0 +1,27 @@
+<section class="driver-dashboard">
+  <header>
+    <h2>Driver Overview</h2>
+    <p>Track your next departure, approvals, and live trip segments.</p>
+  </header>
+
+  <article class="driver-dashboard__card">
+    <h3>Active segment</h3>
+    <p>
+      <strong>{{ activeSegment.route }}</strong>: {{ activeSegment.from }} →
+      {{ activeSegment.to }}
+    </p>
+    <p>Status: {{ activeSegment.status }}</p>
+    <button type="button">Request departure</button>
+  </article>
+
+  <section class="driver-dashboard__list">
+    <h3>Recent requests</h3>
+    <ul>
+      <li *ngFor="let request of pendingRequests">
+        <span>{{ request.from }} → {{ request.to }}</span>
+        <span class="status">{{ request.status }}</span>
+      </li>
+    </ul>
+  </section>
+</section>
+

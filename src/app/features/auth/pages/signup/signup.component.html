@@ -1,0 +1,109 @@
+<section class="signup">
+  <div class="signup__badge">Bus Tracking Control</div>
+  <header class="signup__header">
+    <h2>Create an account</h2>
+    <p>Choose the role that matches your responsibilities to unlock tailored workflows.</p>
+  </header>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div class="form-field">
+      <label for="username">Username</label>
+      <input
+        id="username"
+        type="text"
+        formControlName="username"
+        placeholder="Enter a unique username"
+      />
+      <small *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
+        Username is required and must be at least 4 characters.
+      </small>
+    </div>
+
+    <div class="form-field form-field--inline">
+      <div>
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Minimum 8 characters"
+        />
+        <small *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+          Password must be at least 8 characters long.
+        </small>
+      </div>
+
+      <div>
+        <label for="confirmPassword">Confirm password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="Re-enter password"
+        />
+        <small *ngIf="(form.get('confirmPassword')?.touched || form.get('password')?.touched) && passwordMismatch">
+          Passwords do not match.
+        </small>
+      </div>
+    </div>
+
+    <fieldset class="role-selector">
+      <legend>Select your role</legend>
+      <div class="role-selector__options">
+        <label *ngFor="let role of roles" [class.is-active]="form.value.role === role.value">
+          <input type="radio" [value]="role.value" formControlName="role" />
+          <span>
+            <strong>{{ role.label }}</strong>
+            <small>{{ role.description }}</small>
+          </span>
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="form-field" *ngIf="showDriverFields">
+      <label for="driverLicenseNumber">Driver license number</label>
+      <input
+        id="driverLicenseNumber"
+        type="text"
+        formControlName="driverLicenseNumber"
+        placeholder="Enter your license number"
+      />
+      <small *ngIf="form.get('driverLicenseNumber')?.invalid && form.get('driverLicenseNumber')?.touched">
+        Driver license number is required for driver accounts.
+      </small>
+    </div>
+
+    <div class="form-field" *ngIf="showStationFields">
+      <label for="assignedStationCode">Assigned station code</label>
+      <input
+        id="assignedStationCode"
+        type="text"
+        formControlName="assignedStationCode"
+        placeholder="Enter your station identifier"
+      />
+      <small *ngIf="form.get('assignedStationCode')?.invalid && form.get('assignedStationCode')?.touched">
+        Station code is required for station masters.
+      </small>
+    </div>
+
+    <div class="form-field" *ngIf="showAdminFields">
+      <label for="adminSecurityCode">Admin security code</label>
+      <input
+        id="adminSecurityCode"
+        type="password"
+        formControlName="adminSecurityCode"
+        placeholder="Enter the admin authorization code"
+      />
+      <small *ngIf="form.get('adminSecurityCode')?.invalid && form.get('adminSecurityCode')?.touched">
+        Security code is required for admin accounts.
+      </small>
+    </div>
+
+    <button type="submit" class="signup__submit">Create account</button>
+  </form>
+
+  <p class="signup__login">
+    Already onboard? <a routerLink="/auth">Sign in instead</a>
+  </p>
+</section>
+

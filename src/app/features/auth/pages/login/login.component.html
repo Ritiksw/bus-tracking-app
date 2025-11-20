@@ -1,0 +1,28 @@
+<section class="login">
+  <div class="login__badge">Bus Tracking Control</div>
+  <h2>Welcome back</h2>
+  <p class="login__subtitle">Manage departures, approvals, and live telemetry from a single dashboard.</p>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label class="form-field">
+      <span>Username</span>
+      <input formControlName="username" type="text" placeholder="e.g. station.master" />
+    </label>
+    <label class="form-field">
+      <span>Password</span>
+      <input formControlName="password" type="password" placeholder="Enter password" />
+    </label>
+    <button type="submit">
+      <span>Sign in</span>
+    </button>
+  </form>
+
+  <div class="login__divider">
+    <span>New to the platform?</span>
+  </div>
+
+  <p class="login__signup">
+    <a routerLink="/auth/signup">Create an account</a>
+    to request departures, oversee stations, or administer routes.
+  </p>
+</section>

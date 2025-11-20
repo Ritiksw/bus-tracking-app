@@ -1,27 +1,75 @@
-# BusTrackingApp
+# Bus Tracking App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+Angular 16 single-page application with a Spring Boot 3 backend for managing bus trip approvals, realtime telemetry, and auditing.
 
-## Development server
+## Requirements
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Node.js 18+ and npm (for the Angular client)
+- Java 17 and Maven (for the Spring Boot API)
+- Docker Desktop (optional, recommended for local PostgreSQL + Redis)
 
-## Code scaffolding
+## Local Services (PostgreSQL & Redis via Docker)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+docker compose up -d
+```
 
-## Build
+Services exposed on:
+- PostgreSQL: `localhost:5432`, database `bus_tracking`, user `postgres`, password `postgres`
+- Redis: `localhost:6379`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Stop services with `docker compose down` (add `--volumes` to wipe data).
 
-## Running unit tests
+### Environment Overrides
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The backend reads connection details from environment variables; defaults align with the Docker compose values.
 
-## Running end-to-end tests
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=bus_tracking
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+REDIS_HOST=localhost
+REDIS_PORT=6379
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Backend API
 
-## Further help
+```bash
+cd backend
+mvn spring-boot:run
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Swagger UI: http://localhost:8080/swagger-ui.html (once endpoints are documented)
+- Health check: http://localhost:8080/actuator/health
+
+Run tests:
+
+```bash
+mvn clean test
+```
+
+### Default Admin Credentials
+
+`admin` / `Admin123!` (seeded on startup; change via `bootstrap.admin.*` properties or environment variables).
+
+## Frontend (Angular)
+
+```bash
+npm install
+npm start
+```
+
+App served at http://localhost:4200/.
+
+Run tests:
+
+```bash
+npm test
+```
+
+## Useful Scripts
+
+- `docker compose down --volumes` — stop databases and reset state
+- `mvn spring-boot:run -Dspring-boot.run.profiles=dev` — run backend with additional Spring profiles (when added)

@@ -1,0 +1,31 @@
+<section class="station-queue">
+  <header>
+    <h2>Pending departure requests</h2>
+    <p>Review and approve departures originating from your station.</p>
+  </header>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Trip</th>
+        <th>Bus</th>
+        <th>Route</th>
+        <th>Requested</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of queue">
+        <td>{{ request.tripId }}</td>
+        <td>{{ request.bus }}</td>
+        <td>{{ request.from }} → {{ request.to }}</td>
+        <td>{{ request.requestedAt }}</td>
+        <td>
+          <button type="button" class="approve">Approve</button>
+          <button type="button" class="reject">Reject</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+

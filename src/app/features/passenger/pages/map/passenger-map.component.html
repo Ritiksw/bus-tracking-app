@@ -1,0 +1,21 @@
+<section class="passenger-map">
+  <header>
+    <h2>Live bus map</h2>
+    <p>Track active buses and estimated arrivals.</p>
+  </header>
+
+  <div class="passenger-map__content">
+    <div class="passenger-map__map">Map placeholder</div>
+    <aside class="passenger-map__sidebar">
+      <h3>Active buses</h3>
+      <ul>
+        <li *ngFor="let bus of activeBuses">
+          <strong>{{ bus.route }}</strong>
+          <span>ETA {{ bus.eta }}</span>
+          <small>Last seen {{ bus.lastSeen }}</small>
+        </li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
