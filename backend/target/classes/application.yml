@@ -3,8 +3,10 @@ spring:
     name: bus-tracking-api
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:bus_tracking}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    username: ${DB_USERNAME:bus_tracker}
+    password: ${DB_PASSWORD:bus_tracker}
+    hikari:
+      connection-init-sql: SET TIME ZONE 'UTC'
   jpa:
     hibernate:
       ddl-auto: update
